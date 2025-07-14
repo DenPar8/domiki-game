@@ -204,9 +204,12 @@ function showEndScreen(finalWinner) {
     </div>
   `;
 
-  const telegramMessage = `🎉 Новый результат викторины!%0AИмя: ${name}%0AВозраст: ${age} лет%0A%0A🏆 Победители:%0A1 место — ${top3[0]}%0A2 место — ${top3[1]}%0A3 место — ${top3[2]}`;
-
-  fetch('https://api.telegram.org/bot8022624500:AAGNUp3O2mIaQaflQw6GByFL24nNhtcrr50/sendMessage?chat_id=582927992&text=' + telegramMessage);
+  // Заглушка вместо Telegram
+  console.log("Результат отправлен (заглушка):", {
+    name,
+    age,
+    top3
+  });
 
   confetti({
     particleCount: 200,
