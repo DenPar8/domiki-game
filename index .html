@@ -204,12 +204,18 @@ function showEndScreen(finalWinner) {
     </div>
   `;
 
-  // Заглушка вместо Telegram
-  console.log("Результат отправлен (заглушка):", {
-    name,
-    age,
-    top3
-  });
+  // 🔔 Отправка результатов в Make webhook
+  fetch("https://hook.us2.make.com/fjndael6296skcvhk7gf84q2sepvbaoa", {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json"
+    },
+    body: JSON.stringify({
+      name: name,
+      age: age,
+      winners: top3
+    })
+  }).catch(e => console.warn("Ошибка отправки результата:", e));
 
   confetti({
     particleCount: 200,
