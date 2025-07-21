@@ -61,38 +61,16 @@
 
 <script>
 const images = [
-  "images/House_01.jpeg",
-  "images/House_02.jpeg",
-  "images/House_03.jpeg",
-  "images/House_04.jpeg",
-  "images/House_05.jpeg",
-  "images/House_06.jpeg",
-  "images/House_07.jpeg",
-  "images/House_08.jpeg",
-  "images/House_09.jpeg",
-  "images/House_10.jpeg",
-  "images/House_11.jpeg",
-  "images/House_12.jpeg",
-  "images/House_13.jpeg",
-  "images/House_14.jpeg",
-  "images/House_15.jpeg",
-  "images/House_16.jpeg",
-  "images/House_17.jpeg",
-  "images/House_18.jpeg",
-  "images/House_19.jpeg",
-  "images/House_20.jpeg",
-  "images/House_21.jpeg",
-  "images/House_22.jpeg",
-  "images/House_23.jpeg",
-  "images/House_24.jpeg",
-  "images/House_25.jpeg",
-  "images/House_26.jpeg",
-  "images/House_27.jpeg",
-  "images/House_28.jpeg",
-  "images/House_29.jpeg",
-  "images/House_30.jpeg"
+  "images/House_01.jpeg", "images/House_02.jpeg", "images/House_03.jpeg", "images/House_04.jpeg",
+  "images/House_05.jpeg", "images/House_06.jpeg", "images/House_07.jpeg", "images/House_08.jpeg",
+  "images/House_09.jpeg", "images/House_10.jpeg", "images/House_11.jpeg", "images/House_12.jpeg",
+  "images/House_13.jpeg", "images/House_14.jpeg", "images/House_15.jpeg", "images/House_16.jpeg",
+  "images/House_17.jpeg", "images/House_18.jpeg", "images/House_19.jpeg", "images/House_20.jpeg",
+  "images/House_21.jpeg", "images/House_22.jpeg", "images/House_23.jpeg", "images/House_24.jpeg",
+  "images/House_25.jpeg", "images/House_26.jpeg", "images/House_27.jpeg", "images/House_28.jpeg",
+  "images/House_29.jpeg", "images/House_30.jpeg"
 ];
-  
+
 let round = [];
 let nextRound = [];
 let current = 0;
@@ -204,18 +182,21 @@ function showEndScreen(finalWinner) {
     </div>
   `;
 
-  // 🔔 Отправка результатов в Make webhook
-  fetch("https://hook.us2.make.com/fjndael6296skcvhk7gf84q2sepvbaoa", {
+  // 📨 Прямая отправка в Telegram
+  const token = "8022624500:AAGNUp3O2mIaQaflQw6GByFL24nNhtcrr50";
+  const chatId = 582927992;
+  const message = `🏁 Новый участник!\n👤 Имя: ${name}\n🎂 Возраст: ${age}\n🏆 Победители:\n1. ${top3[0]}\n2. ${top3[1]}\n3. ${top3[2]}`;
+
+  fetch(`https://api.telegram.org/bot${token}/sendMessage`, {
     method: "POST",
     headers: {
       "Content-Type": "application/json"
     },
     body: JSON.stringify({
-      name: name,
-      age: age,
-      winners: top3
+      chat_id: chatId,
+      text: message
     })
-  }).catch(e => console.warn("Ошибка отправки результата:", e));
+  }).catch(e => console.error("Ошибка отправки в Telegram:", e));
 
   confetti({
     particleCount: 200,
